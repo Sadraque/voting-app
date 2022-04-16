@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: voting-app
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: admin
+      username: root
+      password: root
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+    include-message: always
+    include-binding-errors: always
+logging:
+  level:
+    org.springframework.data.mongodb.repository.query: DEBUG
+
