@@ -16,4 +16,7 @@ public class VoteDTO {
 
     @NotEmpty
     private String candidateId;
+
+    @NotEmpty
+    private String electionId;
 }

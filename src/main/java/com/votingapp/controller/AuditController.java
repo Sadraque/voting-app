@@ -17,9 +17,15 @@ import org.springframework.web.bind.annotation.*;
 public class AuditController {
     private final IAuditService service;
 
-    @PostMapping
+    @GetMapping(value = "/audit/{electionId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Audit createAudit() {
-        return service.createAudit();
+    public Audit createAudit(@PathVariable String electionId) {
+        return service.createAudit(electionId);
+    }
+
+    @GetMapping(value = "{auditId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Audit audit(@PathVariable String auditId) {
+        return service.findAuditById(auditId);
     }
 }

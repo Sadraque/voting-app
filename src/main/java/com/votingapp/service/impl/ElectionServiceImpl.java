@@ -5,12 +5,16 @@ import com.votingapp.domain.Election;
 import com.votingapp.domain.dto.ElectionDTO;
 import com.votingapp.exception.BadRequestException;
 import com.votingapp.exception.EntityNotFoundException;
+import com.votingapp.exception.PreconditionFailedException;
 import com.votingapp.repository.CandidateRepository;
 import com.votingapp.repository.ElectionRepository;
 import com.votingapp.service.IElectionService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,22 +64,64 @@ public class ElectionServiceImpl implements IElectionService {
         Election election = Election.builder()
                 .startDate(startDate)
                 .endDate(endDate)
+                .updatedAt(LocalDateTime.now())
                 .name(electionDTO.getName())
                 .description(electionDTO.getDescription())
                 .candidates(candidates)
-                .started(startDate.before(new Date()))
+                .started(startDate.before(new Date()) && electionDTO.getStartAutomatically())
+                .startAutomatically(electionDTO.getStartAutomatically())
                 .build();
 
         return repository.save(election);
     }
 
     @Override
-    public Election startElection() {
-        return null;
+    public void openElection(final String electionId) {
+        Optional<Election> optionalElection = repository.findById(electionId);
+
+        if (optionalElection.isEmpty()) {
+            throw new EntityNotFoundException(Election.class);
+        }
+
+        Election election = optionalElection.get();
+
+        if (election.getClosed()) {
+            throw new PreconditionFailedException("It is not possible to open a closed Election");
+        }
+
+        election.setStarted(true);
+        election.setUpdatedAt(LocalDateTime.now());
+
+        repository.save(election);
     }
 
     @Override
-    public Election closeElection() {
-        return null;
+    public void closeElection(final String electionId) {
+        Optional<Election> optionalElection = repository.findById(electionId);
+
+        if (optionalElection.isEmpty()) {
+            throw new EntityNotFoundException(Election.class);
+        }
+
+        Election election = optionalElection.get();
+
+        if (election.getClosed()) {
+            throw new PreconditionFailedException("Election already closed");
+        }
+
+        election.setClosed(true);
+        election.setUpdatedAt(LocalDateTime.now());
+
+        repository.save(election);
+    }
+
+    @Override
+    public Page<Election> findAllElections(final Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    @Override
+    public Election updateElection(final Election election) {
+        return repository.save(election);
     }
 }

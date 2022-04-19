@@ -29,6 +29,9 @@ public class Vote {
     @DBRef
     private Candidate candidate;
 
+    @DBRef
+    private Election election;
+
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 }

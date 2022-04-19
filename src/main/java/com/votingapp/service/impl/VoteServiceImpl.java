@@ -1,12 +1,14 @@
 package com.votingapp.service.impl;
 
 import com.votingapp.domain.Candidate;
+import com.votingapp.domain.Election;
 import com.votingapp.domain.User;
 import com.votingapp.domain.Vote;
 import com.votingapp.domain.dto.VoteDTO;
 import com.votingapp.exception.EntityNotFoundException;
 import com.votingapp.exception.InvalidVoteException;
 import com.votingapp.repository.CandidateRepository;
+import com.votingapp.repository.ElectionRepository;
 import com.votingapp.repository.UserRepository;
 import com.votingapp.repository.VoteRepository;
 import com.votingapp.service.IVoteService;
@@ -23,15 +25,23 @@ public class VoteServiceImpl implements IVoteService {
     private final VoteRepository repository;
     private final UserRepository userRepository;
     private final CandidateRepository candidateRepository;
+    private final ElectionRepository electionRepository;
 
     @Override
     @Transactional
     public Vote createVote(final VoteDTO voteDTO) {
-        User user = userRepository.findById(voteDTO.getUserId())
+        final Election election = electionRepository.findById(voteDTO.getElectionId())
+                .orElseThrow(() -> new EntityNotFoundException(Election.class));
+
+        if (election.getClosed()) {
+            throw new InvalidVoteException("Election it is closed");
+        }
+
+        final User user = userRepository.findById(voteDTO.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException(User.class));
 
-        Candidate candidate = candidateRepository.findById(voteDTO.getCandidateId())
-                .orElseThrow(EntityNotFoundException::new);
+        final Candidate candidate = candidateRepository.findById(voteDTO.getCandidateId())
+                .orElseThrow(() -> new EntityNotFoundException(Candidate.class));
 
          if (repository.existsByUser(user)) {
             throw new InvalidVoteException("User already voted");
@@ -40,6 +50,7 @@ public class VoteServiceImpl implements IVoteService {
         Vote vote = Vote.builder()
                 .user(user)
                 .candidate(candidate)
+                .election(election)
                 .build();
 
         return repository.save(vote);

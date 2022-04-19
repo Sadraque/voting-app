@@ -38,6 +38,8 @@ public class Election {
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    private LocalDateTime updatedAt;
+
     private Date startDate;
 
     private Date endDate;
@@ -46,6 +48,8 @@ public class Election {
     private Boolean started = Boolean.FALSE;
 
     @Builder.Default
-    private Boolean ended = Boolean.FALSE;
+    private Boolean closed = Boolean.FALSE;
 
+    @Builder.Default
+    private Boolean startAutomatically = Boolean.TRUE;
 }

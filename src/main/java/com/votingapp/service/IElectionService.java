@@ -2,14 +2,20 @@ package com.votingapp.service;
 
 import com.votingapp.domain.Election;
 import com.votingapp.domain.dto.ElectionDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface IElectionService {
 
-    Election createElection(ElectionDTO electionDTO);
+    Election createElection(final ElectionDTO electionDTO);
 
-    Election startElection();
+    void openElection(final String electionId);
 
-    Election closeElection();
+    void closeElection(final String electionId);
+
+    Page<Election> findAllElections(final Pageable pageable);
+
+    Election updateElection(final Election election);
 }
