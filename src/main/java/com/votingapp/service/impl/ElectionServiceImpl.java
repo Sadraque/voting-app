@@ -70,6 +70,7 @@ public class ElectionServiceImpl implements IElectionService {
                 .candidates(candidates)
                 .started(startDate.before(new Date()) && electionDTO.getStartAutomatically())
                 .startAutomatically(electionDTO.getStartAutomatically())
+                .endAutomatically(electionDTO.getEndAutomatically())
                 .build();
 
         return repository.save(election);
@@ -123,5 +124,15 @@ public class ElectionServiceImpl implements IElectionService {
     @Override
     public Election updateElection(final Election election) {
         return repository.save(election);
+    }
+
+    @Override
+    public List<Election> findAllToOpen(final Date reference) {
+        return repository.findAllToOpen(reference);
+    }
+
+    @Override
+    public List<Election> findAllToClose(final Date reference) {
+        return repository.findAllToClose(reference);
     }
 }

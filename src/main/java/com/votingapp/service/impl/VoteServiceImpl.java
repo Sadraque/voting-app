@@ -33,7 +33,7 @@ public class VoteServiceImpl implements IVoteService {
         final Election election = electionRepository.findById(voteDTO.getElectionId())
                 .orElseThrow(() -> new EntityNotFoundException(Election.class));
 
-        if (election.getClosed()) {
+        if (!election.getStarted() || election.getClosed()) {
             throw new InvalidVoteException("Election it is closed");
         }
 

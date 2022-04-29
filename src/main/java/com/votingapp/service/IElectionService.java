@@ -6,6 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service
 public interface IElectionService {
 
@@ -18,4 +21,8 @@ public interface IElectionService {
     Page<Election> findAllElections(final Pageable pageable);
 
     Election updateElection(final Election election);
+
+    List<Election> findAllToOpen(final Date reference);
+
+    List<Election> findAllToClose(final Date reference);
 }

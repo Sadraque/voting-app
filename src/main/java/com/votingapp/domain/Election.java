@@ -52,4 +52,7 @@ public class Election {
 
     @Builder.Default
     private Boolean startAutomatically = Boolean.TRUE;
+
+    @Builder.Default
+    private Boolean endAutomatically = Boolean.TRUE;
 }

@@ -18,3 +18,9 @@ logging:
   level:
     org.springframework.data.mongodb.repository.query: DEBUG
 
+#routines
+routine:
+  election:
+    open: 60000
+    close: 60000
+

@@ -32,4 +32,7 @@ public class ElectionDTO {
 
     @Builder.Default
     private Boolean startAutomatically = Boolean.TRUE;
+
+    @Builder.Default
+    private Boolean endAutomatically = Boolean.TRUE;
 }
