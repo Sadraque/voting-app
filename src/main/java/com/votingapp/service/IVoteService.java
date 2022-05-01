@@ -11,6 +11,8 @@ public interface IVoteService {
 
     Vote createVote(final VoteDTO voteDTO);
 
+    void createVote(final VoteDTO voteDTO, final boolean enqueue);
+
     Vote findVoteById(final String id);
 
     Page<Vote> findAllVotes(final Pageable pageable);

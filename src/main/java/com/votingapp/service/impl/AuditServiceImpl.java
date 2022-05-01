@@ -55,7 +55,7 @@ public class AuditServiceImpl implements IAuditService {
 
         candidates.forEach(candidate -> percentages.add(new PercentageDTO(candidate,
                 BigDecimal.valueOf(votes.stream()
-                        .filter(vote -> vote.getCandidate().getId().equals(candidate.getId()))
+                        .filter(vote -> vote.getCandidateId().equals(candidate.getId()))
                         .count() * 100.00D / totalOfVotes)
                         .setScale(2, RoundingMode.UP))));
 

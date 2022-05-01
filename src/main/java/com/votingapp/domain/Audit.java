@@ -25,9 +25,6 @@ public class Audit {
     @Id
     private String id;
 
-/*    @DBRef
-    private List<Vote> votes;*/
-
     @DBRef
     private List<Candidate> candidates;
 

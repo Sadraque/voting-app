@@ -24,3 +24,11 @@ routine:
     open: 60000
     close: 60000
 
+#rabbitmq
+rabbit:
+  queues:
+    vote:
+      queue: vote_queue
+      exchange: vote_exchange
+      routingKey: vote_routing_key
+

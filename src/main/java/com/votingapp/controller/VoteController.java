@@ -25,8 +25,8 @@ public class VoteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Vote createVote(@RequestBody @Valid VoteDTO voteDTO) {
-        return service.createVote(voteDTO);
+    public void createVote(@RequestBody @Valid VoteDTO voteDTO) {
+        service.createVote(voteDTO, true);
     }
 
     @GetMapping("{id}")
