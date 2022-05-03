@@ -2,6 +2,7 @@ package com.votingapp.controller;
 
 import com.votingapp.configuration.RabbitConfig;
 import com.votingapp.utils.WebClientUtils;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +23,7 @@ public class HealthController {
 
     @GetMapping("rabbitmq/health")
     @ResponseStatus(HttpStatus.OK)
+    @Hidden
     public ResponseEntity<String> rabbitmqHealthCheck() {
         return webClientUtils.getWithBasicAuth(rabbitConfig.HOST,
                 URI.create(rabbitConfig.HEALTH),

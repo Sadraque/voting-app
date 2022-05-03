@@ -18,7 +18,7 @@ import javax.validation.Valid;
         produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Validated
-public class ElectionController {
+public class ElectionController implements SecuredController {
     private final IElectionService service;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

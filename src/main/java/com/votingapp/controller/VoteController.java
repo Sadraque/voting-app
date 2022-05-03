@@ -20,7 +20,7 @@ import javax.validation.Valid;
         produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Validated
-public class VoteController {
+public class VoteController implements SecuredController {
     private final IVoteService service;
 
     @PostMapping

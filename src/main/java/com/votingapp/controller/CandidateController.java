@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class CandidateController {
+public class CandidateController implements SecuredController {
 
     private final CandidateRepository repository;
 

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
         produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Validated
-public class AuditController {
+public class AuditController implements SecuredController {
     private final IAuditService service;
 
     @GetMapping(value = "/audit/{electionId}")
