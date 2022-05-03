@@ -16,7 +16,7 @@ public class VoteProducerImpl implements IVoteProducer {
 
     @Override
     public void sendToQueue(VoteDTO payload) {
-        rabbitTemplate.sendToQueue(payload, rabbitConfig.VOTE_EXCHANGE, rabbitConfig.VOTE_ROUTING_KEY);
+        rabbitTemplate.sendToQueue(payload, rabbitConfig.DEFAULT_EXCHANGE, rabbitConfig.VOTE_ROUTING_KEY);
     }
 
 }

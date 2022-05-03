@@ -8,6 +8,18 @@ spring:
       database: admin
       username: root
       password: root
+  mail:
+    host: smtp.gmail.com
+    username: sadraquenunesmartiniano2@gmail.com
+    password: 'PASSWORD_HERE'
+    port: 587
+    properties:
+      smtp:
+        auth: true
+        starttls:
+          enabled: true
+    debug: false
+    protocol: smtp
 server:
   port: 8080
   error:
@@ -26,9 +38,24 @@ routine:
 
 #rabbitmq
 rabbit:
+  host: http://localhost:15672
+  health: /api/health/checks/alarms
+  user: guest
+  password: guest
   queues:
     vote:
       queue: vote_queue
       exchange: vote_exchange
       routingKey: vote_routing_key
+    email:
+      queue: email_queue
+      exchange: email_exchange
+      routingKey: email_routing_key
 
+#security
+jwt:
+  secret: basic-api-pattern
+  expiration: 86400000
+password:
+  recovery:
+    expirationInHour: 1

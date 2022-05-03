@@ -24,7 +24,7 @@ public class AuditController {
     }
 
     @GetMapping(value = "{auditId}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public Audit audit(@PathVariable String auditId) {
         return service.findAuditById(auditId);
     }
